@@ -18,7 +18,8 @@ module HttpLog
     :compact_log           => false,
     :url_whitelist_pattern => /.*/,
     :url_blacklist_pattern => nil,
-    :color                 => false
+    :color                 => false,
+    :status_code_range     => 400..599
   }
 
   LOG_PREFIX = "[httplog] ".freeze
@@ -38,6 +39,10 @@ module HttpLog
       end
 
       url.to_s.match(options[:url_whitelist_pattern])
+    end
+
+    def attains_severity_level?(response)
+      response && options[:status_code_range].cover?(response.code.to_i)
     end
 
     def log(msg)

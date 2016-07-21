@@ -7,21 +7,18 @@ module Net
 
       url = "http://#{@address}:#{@port}#{req.path}"
 
-      log_enabled = HttpLog.url_approved?(url)
-
-      if log_enabled && started?
-        HttpLog.log_request(req.method, url)
-        HttpLog.log_headers(req.each_header.collect)
-        # A bit convoluted becase post_form uses form_data= to assign the data, so
-        # in that case req.body will be empty.
-        HttpLog::log_data(req.body.nil? || req.body.size == 0 ? body : req.body) #if req.method == 'POST'
-      end
+      url_approved = HttpLog.url_approved?(url)
 
       bm = Benchmark.realtime do
         @response = orig_request(req, body, &block)
       end
 
-      if log_enabled && started?
+      if url_approved && started? && HttpLog.attains_severity_level?(@response)
+        HttpLog.log_request(req.method, url)
+        HttpLog.log_headers(req.each_header.collect)
+        # A bit convoluted because post_form uses form_data= to assign the data, so
+        # in that case req.body will be empty.
+        HttpLog::log_data(req.body.nil? || req.body.size == 0 ? body : req.body) #if req.method == 'POST'
         HttpLog.log_compact(req.method, url, @response.code, bm)
         HttpLog.log_status(@response.code)
         HttpLog.log_benchmark(bm)
