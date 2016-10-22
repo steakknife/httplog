@@ -69,11 +69,11 @@ So if you want to use this in a Rails app:
     # config/initializers/httplog.rb
     HttpLog.options[:logger] = Rails.logger
 
-You can colorize the output to make it stand out in your logfile:
+You can rainbow the output to make it stand out in your logfile:
 
     HttpLog.options[:color] = {color: :black, background: :light_red}    
 
-For more color options see [colorize documentation](https://github.com/fazibear/colorize/blob/master/README.md)
+For more color options see [rainbow documentation](https://github.com/sickill/rainbow/blob/master/README.markdown)
 
 ### Compact logging
 
