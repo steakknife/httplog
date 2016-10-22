@@ -1,6 +1,7 @@
-.bundle/
-.rvmrc
-pkg/
-*.gem
-coverage/
-spec/log/*.log
+/.bundle/
+/.rvmrc
+/pkg/
+/*.gem
+/coverage/
+/spec/log/*.log
+/Gemfile.lock
