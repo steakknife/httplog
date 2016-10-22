@@ -1,7 +1,7 @@
 require "net/http"
 require "logger"
 require "benchmark"
-require "colorize"
+require "colorify"
 
 module HttpLog
   DEFAULT_LOGGER  = Logger.new($stdout)
@@ -121,7 +121,7 @@ module HttpLog
 
     def colorize(msg)
       return msg unless options[:color]
-      msg.send(:colorize, options[:color])
+      Colorify(msg).public_send(options[:color])
     end
 
     private
