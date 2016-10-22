@@ -71,7 +71,7 @@ So if you want to use this in a Rails app:
 
 You can rainbow the output to make it stand out in your logfile:
 
-    HttpLog.options[:color] = {color: :black, background: :light_red}    
+    HttpLog.options[:color] = bright_white_bg_red_italic
 
 For more color options see [rainbow documentation](https://github.com/sickill/rainbow/blob/master/README.markdown)
 
